@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="chatModule">
+
+<head>
+	<title>Socket IO Chat</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+	<!-- load angular -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.5/angular-ui-router.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/main.js" type="text/javascript"></script>
+	<script src="/storageScript.js" type="text/javascript"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/chatstyle.css" rel="stylesheet">
+</head>
+
+<body>
+
+	<div class="main_section">
+		<ui-view></ui-view>
+	</div>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.autosize/3.0.20/autosize.min.js"></script>
+	<script>
+		autosize(document.querySelector('textarea'));
+	</script>
+</body>
+
+</html>

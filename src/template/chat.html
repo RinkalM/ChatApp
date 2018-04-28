@@ -1,0 +1,62 @@
+<div ng-show="showChatTab">
+<div class="chat_area">
+    <ul class="list-unstyled" id="messages">
+
+
+        <li class="left clearfix partner_chat">
+            <!--name and time here-->
+            <span style="font-size:0.85em; color:rgb(202, 38, 128); display:block; margin-left: 50px;">Yo McMoney, 09:40PM </span>
+            <div class="chat-body1 clearfix">
+                <div class="image_chat">
+                    <div class="image_thumb" style="padding:5px 0px 5px 0px;">
+                        <img src="./image1.jpg" class="img-responsive" alt="image1">
+                    </div>
+
+                </div>
+            </div>
+        </li>
+
+        <li class="left clearfix self_chat">
+
+            <!--name and time here-->
+            <span style="font-size:0.85em; color:rgb(202, 38, 128); display:block; text-align:right; margin-right: 50px">09:40PM</span>
+
+            <div class="chat-body1 clearfix">
+                <div class="image_chat">
+
+                    <div class="image_thumb" style="padding:5px 0px 5px 0px; display:block;">
+                        <img src="./image1.jpg" class="img-responsive" alt="image1">
+                    </div>
+
+                </div>
+            </div>
+        </li>
+
+    </ul>
+</div>
+<!--chat_area-->
+<!--send message_section-->
+<div class="message_write">
+    <div>
+        <div class="pull-left ">
+            <div class="upload_btn">
+                <i class="fa fa-paperclip fa-2x" style=" margin-right: 6px;" aria-hidden="true"></i>
+            </div>
+        </div>
+    </div>
+    <div class="message_box_container">
+        <div class="chat_bottom">
+            <textarea class="form-control" placeholder="type a message" ng-model="textval"></textarea>
+        </div>
+    </div>
+    <div>
+        <div class="pull-right">
+            <div class="upload_btn ">
+                <i class="fa fa-send" style="font-size:24px; margin-left: 6px;" ng-click="sendMessage(textval)"></i>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- <div class=" btn btn-success" >Send</div> -->

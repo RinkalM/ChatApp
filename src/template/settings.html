@@ -1,0 +1,59 @@
+<div ng-hide="showChatTab">
+        
+    <div class="maxl">
+        <label>User Name</label>
+        <span>
+            <input type="text" id="user" ng-model="userName" />
+        </span>
+        <label>Interface color</label>
+        <label class="radio inline">
+            <input type="radio" ng-model="colortheme" value="light" ng-click="colorChanged('light')"/>
+            <span>Light</span>
+        </label>
+        <label class="radio inline">
+            <input type="radio" ng-model="colortheme" value="dark" ng-click="colorChanged('dark')"/>
+            <span>Dark</span>
+        </label>
+        <label>Clock Display</label>
+        <label class="radio inline">
+            <input type="radio" id="clk" ng-model="clock" value="12" ng-click="clockChanged(12)"/>
+            <span>12 Hours</span>
+        </label>
+        <label class="radio inline">
+            <input type="radio" ng-model="clock" value="24" ng-click="clockChanged(24)"/>
+            <span>24 Hours</span>
+        </label>
+        <!-- <label>Message Sounds</label>
+        <label class="radio inline">
+            <input type="radio" name="sound" value="on" checked>
+            <span>On </span>
+        </label>
+        <label class="radio inline">
+            <input type="radio" name="sound" value="off">
+            <span>Off </span>
+        </label> -->
+        <label>Send Message on CTRL+ENTER</label>
+        <label class="radio inline">
+            <input type="radio" value="true" ng-model="enterEnable" ng-click="enterChanged(true)"/>
+            <span>On</span>
+        </label>
+        <label class="radio inline">
+            <input type="radio" value="false" ng-model="enterEnable" ng-click="enterChanged(false)"/>
+            <span>Off</span>
+            </span>
+        </label>
+        <label>Language</label>
+        <div class="dropDownContainer">
+            <select ng-model="language">
+                <option value="en_EN">English</option>
+                <!-- <option value="French">French</option> -->
+            </select>
+        </div>
+        <div class="pull-left">
+            <div class="btn btn-reset" style="margin-left: 20px; margin-top: 20px;" ng-click="saveSettings()">Save</div>
+        </div>
+    </div>
+    <div class="button-container">
+        <div class="btn btn-reset" ng-click="resetDefault()">Reset to default</div>
+    </div>
+</div>

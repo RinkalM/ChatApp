@@ -1,0 +1,12 @@
+{
+  "name": "socket-io-chat",
+  "version": "0.0.1",
+  "description": "my first chat socket.io app",
+  "main": "src/server/server.js",
+  "dependencies": {
+    "@uirouter/angularjs": "^1.0.5",
+    "express": "^3.21.2",
+    "socket.io": "^0.9.19",
+    "webpack-war-plugin": "^1.0.0-beta.3"
+  }
+}
