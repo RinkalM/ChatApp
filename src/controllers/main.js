@@ -115,10 +115,12 @@ var chatApp = angular
 
         var socket = io.connect();
         $scope.showChatTab = true;
+        $scope.mess = [];
 
         $scope.showtab = function (tabID) {
             if (tabID == 'chat' && !$scope.showChatTab) {
                 $scope.showChatTab = true;
+                removeBlink();
             }
             else if (tabID == 'settings' && $scope.showChatTab) {
                 $scope.showChatTab = false;
@@ -137,6 +139,17 @@ var chatApp = angular
             angular.element('#chatArea').val('');
             socket.emit('new message', msg);
             displaySelfText(msg);
+            $scope.mess.push(msg);
+        }
+
+        var removeBlink = function () {
+            angular.element('#chatLink').removeClass("blink-tab");
+            messageCtr = 0;
+        }
+
+        var addBlink = function (number) {
+            angular.element('#chatLink').addClass("blink-tab");
+            angular.element('#chatLink').attr('data-content', number);
         }
 
         var displaySelfText = function (msg) {
@@ -151,8 +164,9 @@ var chatApp = angular
             selfText.append(nameTime);
             selfText.append(chatDiv);
             angular.element('#messages').append(selfText);
+            $scope.mess.push(msg);
         }
-
+        var messageCtr = 0;
         socket.on('new message', function (msg) {
             var time = new Date();
             var currenttime = time.toLocaleString('en-US', { hour: 'numeric', hour12: ishour12, minute: '2-digit' });
@@ -166,10 +180,34 @@ var chatApp = angular
             partnetText.append(chatDiv1);
             angular.element('#messages').append(partnetText);
             if (!$scope.showChatTab) {
-                angular.element('#chatLink').css("background-color", "pink");
+                messageCtr++;
+                addBlink(messageCtr);
             }
-
+            $scope.mess.push(msg);
             //scroll to bottom
         });
-
     })
+    .directive("scrollBottom", function () {
+        return {
+            scope: {
+                scrollBottom: "="
+            },
+            link: function (scope, element) {
+                scope.$watchCollection('scrollBottom', function (newValue) {
+                    if (newValue) {
+                        $(element).scrollTop($(element)[0].scrollHeight);
+                    }
+                });
+            }
+        }
+    })
+    .directive("scroll-bottom", function(){
+        return {
+            link: function(scope, element, attr){
+                var $id= $("#" + attr.scroll-bottom);
+                $(element).on("click", function(){
+                    $id.scrollTop($id[0].scrollHeight);
+                });
+            }
+        }
+    });

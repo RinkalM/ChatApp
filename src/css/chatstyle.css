@@ -245,8 +245,8 @@ div.contact_sec {
  	overflow-x: hidden;
  	overflow-y: auto;
  	width: 100%;
-	margin-bottom: 0px;
-	max-height: 72vh;
+	padding-bottom: 80px;
+	max-height: 70vh;
 }
 
 .chat_area ul.list-unstyled{
@@ -582,4 +582,53 @@ div.btn.btn-reset:hover{
 
 .message_box_container{
 	width: calc(100% - 50px);
+}
+
+.notification-message-unread {
+	float: right;
+	font-size: 10px;
+	color: #666;
+	background: white;
+	padding-left: 10px;
+	display: block;
+	position: relative;
+	width: 200px;
+	height: 200px;
+	background-color: red;
+	animation: blinker 1s linear infinite;
+  }
+  
+  @keyframes blinker {
+	50% {
+	  background-color: blue;
+	}
+  }
+
+  .chat-tab{
+	margin-right: 15px;
+	display: inline-block;
+  }
+
+
+  .blink-tab::before {
+	display: inline-block;
+	content: attr(data-content);
+	width: 12px;
+	height: 12px;
+	background-color:rgb(202, 38, 128); 
+	border-radius: 50%;
+	position: relative;
+	top: -6px;
+	font-size: 0.8em;
+	align-content: center;
+	padding-left: 3px;
+	padding-bottom: 3px;
+	color: black;
+	animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+	50% {
+	  background-color: lightpink;
+	}
 }
