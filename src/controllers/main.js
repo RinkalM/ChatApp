@@ -54,13 +54,20 @@ var chatApp = angular
             }
         }
 
-        $scope.saveSettings = function () {
+        $scope.saveSettings = function (showAlert) {
+
             $scope.userName = angular.element('#user').val();
             storageService.saveSetting('userName', $scope.userName);
             storageService.saveSetting('color', $scope.colortheme);
             storageService.saveSetting('clock', $scope.clock);
             storageService.saveSetting('language', $scope.language);
             storageService.saveSetting('enterEnable', $scope.enterEnable);
+            if(showAlert){
+               angular.element('#succ_alert').css("display", "block");
+               setTimeout( "angular.element('#succ_alert').hide();", 4000);
+               //angular.element('#succ_alert').delay(80000).hide();
+              // $scope.showAlert = false;
+            }
         }
 
         $scope.clockChanged = function (value) {
@@ -83,7 +90,7 @@ var chatApp = angular
             $scope.clock = settingData.clock;
             $scope.language = settingData.language;
             $scope.enterEnable = settingData.enterEnable;
-            $scope.saveSettings();
+            $scope.saveSettings(false);
         }
 
         var changeColour = function (cl) {

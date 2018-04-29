@@ -48,8 +48,12 @@
                 <!-- <option value="French">French</option> -->
             </select>
         </div>
-        <div class="pull-left">
-            <div class="btn btn-reset" style="margin-left: 20px; margin-top: 20px;" ng-click="saveSettings()">Save</div>
+        <div class="pull-left" style="display: block;">
+            <div class="btn btn-reset" style="margin-left: 20px; margin-top: 20px;" ng-click="saveSettings(true)">Save</div>                  
+        </div>
+        
+        <div class="alert alert-success" id="succ_alert" style="display:none;opacity: 0.8;" >
+                Settings saved.       
         </div>
     </div>
     <div class="button-container">
