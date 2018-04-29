@@ -13,42 +13,43 @@ var chatApp = angular
             })
     })
     .controller("mainController", function ($scope, storageService) {
+        var settingData = {};
+        var ishour12 = false;
         $scope.init = function () {
-            var settingData = {
+            settingData = {
                 userName: "Guest001",
                 color: "light",
                 clock: "24",
                 messageSound: "false",
-                enterEnable: "false",
+                enterEnable: "true",
                 language: "en_EN"
             }
             loadSettings();
             //load settings first and initialize the values
-            $scope.ishour12 = false;
-            $scope.ishour12 = changeTimeFormat();
+            ishour12 = changeTimeFormat();
             changeColour($scope.colortheme);
         };
 
         var loadSettings = function () {
 
             $scope.userName = storageService.getSetting("userName");
-            if ($scope.userName === 'undefined' || $scope.userName == "null") {
+            if ($scope.userName == undefined || $scope.userName == "null") {
                 $scope.userName = settingData.userName;
             }
             $scope.colortheme = storageService.getSetting("color");
-            if ($scope.colortheme === 'undefined' || $scope.colortheme == "null") {
+            if ($scope.colortheme == undefined || $scope.colortheme == "null") {
                 $scope.colortheme = settingData.color;
             }
             $scope.clock = storageService.getSetting("clock");
-            if ($scope.clock === 'undefined' || $scope.clock == "null") {
+            if ($scope.clock == undefined || $scope.clock == "null") {
                 $scope.clock = settingData.clock;
             }
             $scope.language = storageService.getSetting("language");
-            if ($scope.language === 'undefined' || $scope.language == "null") {
+            if ($scope.language == undefined || $scope.language == "null") {
                 $scope.language = settingData.language;
             }
             $scope.enterEnable = storageService.getSetting("enterEnable");
-            if ($scope.enterEnable === 'undefined' || $scope.enterEnable == "null") {
+            if ($scope.enterEnable == undefined || $scope.enterEnable == "null") {
                 $scope.enterEnable = settingData.enterEnable;
             }
         }
@@ -64,7 +65,7 @@ var chatApp = angular
 
         $scope.clockChanged = function (value) {
             $scope.clock = value;
-            $scope.ishour12 = changeTimeFormat();
+            ishour12 = changeTimeFormat();
         }
         $scope.colorChanged = function (cl) {
             //change background image
@@ -76,15 +77,17 @@ var chatApp = angular
         }
 
         $scope.resetDefault = function () {
-            storageService.saveSetting('userName', settingData.userName);
-            storageService.saveSetting('color', settingData.color);
-            storageService.saveSetting('clock', settingData.clock);
-            storageService.saveSetting('language', settingData.language);
-            storageService.saveSetting('enterEnable', settingData.enterEnable);
+            angular.element('#user').val(settingData.userName);
+            $scope.userName = settingData.userName;
+            $scope.colortheme = settingData.color;
+            $scope.clock = settingData.clock;
+            $scope.language = settingData.language;
+            $scope.enterEnable = settingData.enterEnable;
+            $scope.saveSettings();
         }
 
         var changeColour = function (cl) {
-            if (cl === "light") {
+            if (cl == "light") {
                 angular.element('#chatBack').css("background-image", "url(/lightBackground.jpg)");
             }
             else {
@@ -100,58 +103,72 @@ var chatApp = angular
             }
             return ishour12_;
         }
+
+        $scope.textChanged = function (event) {
+            if ($scope.enterEnable == 'true') {
+                if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey) {
+                    // Ctrl-Enter pressed
+                    $scope.sendMessage();
+                }
+            }
+        }
+
         var socket = io.connect();
         $scope.showChatTab = true;
 
-        var showtab = function (tabID) {
-            if (tabID === 'chat' && !$scope.showChatTab) {
+        $scope.showtab = function (tabID) {
+            if (tabID == 'chat' && !$scope.showChatTab) {
                 $scope.showChatTab = true;
             }
-            else if (tabID === 'settings' && $scope.showChatTab) {
+            else if (tabID == 'settings' && $scope.showChatTab) {
                 $scope.showChatTab = false;
             }
         }
-        $scope.showtab = showtab;
 
-        $scope.sendMessage = function (text) {
+        $scope.sendMessage = function () {
+            var text = angular.element('#chatArea').val();
+            if (text == undefined || text == "") {
+                return;
+            }
             var msg = {
                 user: $scope.userName,
                 text: text
             };
-            $scope.textval = '$scope.clock';
+            angular.element('#chatArea').val('');
             socket.emit('new message', msg);
+            displaySelfText(msg);
+        }
+
+        var displaySelfText = function (msg) {
+            var time = new Date();
+            var currenttime = time.toLocaleString('en-US', { hour: 'numeric', hour12: ishour12, minute: '2-digit' });
+            //float right
+            var selfText = angular.element('<li class= \'left clearfix self_chat\'>');
+            var nameTime = angular.element('<span class= self_chat_time>').text(currenttime);
+            var chatSpan = angular.element('<span class = chat_span>').append(msg.text);
+            var chatpara = angular.element('<p>').append(chatSpan);
+            var chatDiv = angular.element('<div class= \'chat-body1 clearfix\'>').append(chatpara);
+            selfText.append(nameTime);
+            selfText.append(chatDiv);
+            angular.element('#messages').append(selfText);
         }
 
         socket.on('new message', function (msg) {
-            if (msg == '') {
-                return;
-            }
             var time = new Date();
-            var currenttime = time.toLocaleString('en-US', { hour: 'numeric', hour12: $scope.ishour12, minute: '2-digit' });
-            if (msg.user === $scope.userName) {
-                //float right
-                var selfText = angular.element('<li class= \'left clearfix self_chat\'>');
-                var nameTime = angular.element('<span class= self_chat_time>').text(currenttime);
-                var chatSpan = angular.element('<span class = chat_span>').append(msg.text);
-                var chatpara = angular.element('<p>').append(chatSpan);
-                var chatDiv = angular.element('<div class= \'chat-body1 clearfix\'>').append(chatpara);
-                selfText.append(nameTime);
-                selfText.append(chatDiv);
-
-                angular.element('#messages').append(selfText);
+            var currenttime = time.toLocaleString('en-US', { hour: 'numeric', hour12: ishour12, minute: '2-digit' });
+            //float left
+            var partnetText = angular.element('<li class= \'left clearfix partner_chat\'>');
+            var nameTime1 = angular.element('<span class= partner_chat_time>').text(msg.user + ', ' + currenttime);
+            var chatSpan1 = angular.element('<span class = chat_span>').append(msg.text);
+            var chatpara1 = angular.element('<p>').append(chatSpan1);
+            var chatDiv1 = angular.element('<div class= \'chat-body1 clearfix\'>').append(chatpara1);
+            partnetText.append(nameTime1);
+            partnetText.append(chatDiv1);
+            angular.element('#messages').append(partnetText);
+            if (!$scope.showChatTab) {
+                angular.element('#chatLink').css("background-color", "pink");
             }
-            else {
-                //float left
-                var partnetText = angular.element('<li class= \'left clearfix partner_chat\'>');
-                var nameTime1 = angular.element('<span class= partner_chat_time>').text(msg.user + ', ' + currenttime);
-                var chatSpan1 = angular.element('<span class = chat_span>').append(msg.text);
-                var chatpara1 = angular.element('<p>').append(chatSpan1);
-                var chatDiv1 = angular.element('<div class= \'chat-body1 clearfix\'>').append(chatpara1);
-                partnetText.append(nameTime1);
-                partnetText.append(chatDiv1);
-                angular.element('#messages').append(partnetText);
 
-            }
             //scroll to bottom
         });
 

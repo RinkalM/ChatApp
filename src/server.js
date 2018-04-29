@@ -10,14 +10,15 @@ app.use(express.static(__dirname+'/images'));
 
 app.get('/', function(req, res){
 
-  res.sendfile(__dirname + '/index_new.html');
+  res.sendfile(__dirname + '/index.html');
 });   
 
 io.on('connection', function(socket){
+  console.log('user connected ');
+  console.log('connected users  ', io.connected);
   socket.on('new message', function(msg){
     console.log('Message ', msg);
-    socket.emit('new message', msg);
-    console.log('after emit ', msg);
+    socket.broadcast.emit('new message', msg);
   });
 });
 

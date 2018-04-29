@@ -46,7 +46,7 @@
     </div>
     <div class="message_box_container">
         <div class="chat_bottom">
-            <textarea class="form-control" placeholder="type a message" ng-model="textval"></textarea>
+            <textarea class="form-control" id="chatArea" ng-keypress="textChanged($event)" placeholder="type a message" ng-model="textval"></textarea>
         </div>
     </div>
     <div>
