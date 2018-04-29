@@ -214,6 +214,7 @@ div.contact_sec {
 	-ms-filter: blur(0px);
 	-o-filter: blur(0px);
 	z-index: 999;
+	font-size: 14px;
 	/*backdrop-filter: blur(5	px);*/
 }
 
@@ -453,11 +454,12 @@ i.fa.fa-paperclip.fa-2x{
 
 
 .self_chat_time{
-	font-size:0.85em; 
-	color:rgb(202, 38, 128); 
+	font-size:0.75em; 
+	color:rgb(97, 8, 57); 
 	display:block; 
 	text-align:right; 
 	margin-right: 20px;
+	font-weight: 400;
 }
 
 .chat_span{
@@ -500,6 +502,7 @@ label{
 	color:rgb(107, 22, 22);
 	font-size:12px;
 	position:relative;
+	font-weight: 600;
   }
 .radio span{
 	position:relative;
