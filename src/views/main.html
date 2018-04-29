@@ -1,9 +1,9 @@
 <div class="container" data-ng-init="init()">
     <div class="chat_container">
-        <div class="col-sm-6 message_section">
-            <div class="row" id="chatBack" style="height:99vh; background-image:url(/lightBackground.jpg)">
+        <div class="col-sm-6 message_section" style="min-width: 320px;">
+            <div class="row" id="chatBack" style="height:99vh; background-image:url(/lightBackground.jpg); background-repeat: repeat">
                 <div class="new_message_head">
-                    <a href="#" ng-click="showtab('chat')">Chat</a>
+                    <a href="#" class="chat-tab " id="chatLink" ng-click="showtab('chat')" scroll-bottom="area">Chat</a>
                     <a href="#" ng-click="showtab('settings')">Settings</a>
                 </div>
                 <div ng-include="'settings.html'"> </div> <!--settings area here-->

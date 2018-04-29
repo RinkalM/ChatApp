@@ -200,7 +200,7 @@ div.contact_sec {
 }
 
 .new_message_head {
- 	background:#c3bcb0;
+ 	background:#dfe4e3;
 	color: #777777;
  	float: left;
  	font-size: 13px;
@@ -214,6 +214,7 @@ div.contact_sec {
 	-ms-filter: blur(0px);
 	-o-filter: blur(0px);
 	z-index: 999;
+	font-size: 14px;
 	/*backdrop-filter: blur(5	px);*/
 }
 
@@ -245,8 +246,8 @@ div.contact_sec {
  	overflow-x: hidden;
  	overflow-y: auto;
  	width: 100%;
-	margin-bottom: 0px;
-	max-height: 72vh;
+	padding-bottom: 10px;
+	max-height: calc(100vh - 104px);;
 }
 
 .chat_area ul.list-unstyled{
@@ -268,7 +269,7 @@ div.contact_sec {
 }
 
 .chat-body1 p {
- 	background: #c3bcb0 none repeat scroll 0 0;
+ 	background: rgba(245,243,243,0.9) none repeat scroll 0 0;
  	padding: 10px;
 	border-radius: 10px;
 	min-width: 50px;
@@ -309,7 +310,7 @@ div.contact_sec {
 	content: '';
 	width: 10px;
 	height: 10px;
-	background-color: #c3bcb0;
+	background-color: rgba(245,243,243,0.9);
 	border-radius: 50%;
 	position: absolute;
 	left: -8px;
@@ -366,7 +367,7 @@ div.contact_sec {
 	content: '';
 	width: 10px;
 	height: 10px;
-	background-color: #c3bcb0;
+	background-color: rgba(245,243,243,0.9);
 	border-radius: 50%;
 	position: absolute;
 	left: -8px;
@@ -378,7 +379,7 @@ div.contact_sec {
 }
 
 .message_write {
-	background: #c3bcb1 none repeat scroll 0 0;
+	background: #dfe4e3 none repeat scroll 0 0;
  	float: left;
  	padding: 15px 15px 15px 15px;
  	width: 100%;
@@ -453,11 +454,12 @@ i.fa.fa-paperclip.fa-2x{
 
 
 .self_chat_time{
-	font-size:0.85em; 
-	color:rgb(202, 38, 128); 
+	font-size:0.75em; 
+	color:rgb(97, 8, 57); 
 	display:block; 
 	text-align:right; 
 	margin-right: 20px;
+	font-weight: 400;
 }
 
 .chat_span{
@@ -484,12 +486,11 @@ label{
 	margin-top: 5px;
  }
 .maxl{
-	margin-top:25px ;
-	margin-left: 10px;
+	margin-top:10px ;
 	overflow-x: hidden;
 	overflow-y: auto;
 	width:100%;
-	max-height: 75vh;
+	max-height: calc(100vh - 104px);
 }
 .inline{
 	display: inline-block;
@@ -498,9 +499,10 @@ label{
 	margin-left:10px;
   }
 .radio{
-	color:rgb(117, 116, 116);
+	color:rgb(107, 22, 22);
 	font-size:12px;
 	position:relative;
+	font-weight: 600;
   }
 .radio span{
 	position:relative;
@@ -554,7 +556,7 @@ label{
     margin-top: 5px !important;
 }
 div.btn.btn-reset{
-	background-color: #c3bcb0 ;
+	background-color: #ccc;
 	border-radius: 1px;
 	border: black;
 	width: 100%;
@@ -572,8 +574,7 @@ div.btn.btn-reset{
 }
 	
 div.btn.btn-reset:hover{
-	background-color: #c3bcb080;
-
+	background-color: #c9efad;
 }
 
 .dropDownContainer{
@@ -581,5 +582,33 @@ div.btn.btn-reset:hover{
 }
 
 .message_box_container{
-	width: calc(100% - 50px);
+	width: calc(100% - 30px);
+}
+
+.chat-tab{
+	margin-right: 15px;
+	display: inline-block;
+}
+
+.blink-tab::before {
+	display: inline-block;
+	content: attr(data-content);
+	width: 12px;
+	height: 12px;
+	background-color:rgb(202, 38, 128); 
+	border-radius: 50%;
+	position: relative;
+	top: -6px;
+	font-size: 0.8em;
+	align-content: center;
+	padding-left: 3px;
+	padding-bottom: 3px;
+	color: black;
+	animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+	50% {
+	  background-color: lightpink;
+	}
 }
