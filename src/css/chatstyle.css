@@ -388,6 +388,8 @@ div.contact_sec {
 	margin-top: 0px;
 	height:80px;
 	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -moz-box;
 }
 
 .message_write textarea.form-control {
@@ -469,7 +471,7 @@ i.fa.fa-paperclip.fa-2x{
 
 .partner_chat_time{
 	font-size:0.85em;
-	color:rgb(202, 38, 128); 
+	color:rgb(97, 8, 57);
 	display:block; 
 	margin-left: 20px;
  }

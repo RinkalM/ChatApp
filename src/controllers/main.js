@@ -1,8 +1,8 @@
 /// <refernce path="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"/>
 
 var chatApp = angular
-    .module("chatModule", ["ui.router",])
-    .config(function ($stateProvider, $urlRouterProvider) {
+    .module("chatModule", ["ui.router", "pascalprecht.translate"])
+    .config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
         $urlRouterProvider.otherwise("main");
         $stateProvider
             .state("main", {
@@ -11,8 +11,13 @@ var chatApp = angular
                 controller: "mainController",
                 controllerAs: "mainCtrl",
             })
+            $translateProvider
+            .useUrlLoader('/api/lang')
+            .preferredLanguage('en')
+            .fallbackLanguage('en');
+            
     })
-    .controller("mainController", function ($scope, storageService) {
+    .controller("mainController", function ($scope, $rootScope, $translate, storageService) {
         var settingData = {};
         var ishour12 = false;
         $scope.init = function () {
@@ -22,13 +27,25 @@ var chatApp = angular
                 clock: "24",
                 messageSound: "false",
                 enterEnable: "true",
-                language: "en_EN"
+                language: "en"
             }
             loadSettings();
             //load settings first and initialize the values
             ishour12 = changeTimeFormat();
             changeColour($scope.colortheme);
+            var localLanguage = storageService.getSetting("language");
+            if (localLanguage == undefined || $scope.language == "null") {
+                localLanguage = 'en';
+            }
+            $translate.use(localLanguage);
         };
+        $scope.changeLanguage = function (langKey) {
+            $translate.use(langKey);
+        };
+        $rootScope.$on('$translateChangeSuccess', function (event, data) {
+            $scope.language = data.language;
+            $rootScope.lang = $scope.language;
+        });
 
         var loadSettings = function () {
 
@@ -62,11 +79,11 @@ var chatApp = angular
             storageService.saveSetting('clock', $scope.clock);
             storageService.saveSetting('language', $scope.language);
             storageService.saveSetting('enterEnable', $scope.enterEnable);
-            if(showAlert){
-               angular.element('#succ_alert').css("display", "block");
-               setTimeout( "angular.element('#succ_alert').hide();", 4000);
-               //angular.element('#succ_alert').delay(80000).hide();
-              // $scope.showAlert = false;
+            if (showAlert) {
+                angular.element('#succ_alert').css("display", "block");
+                setTimeout("angular.element('#succ_alert').hide();", 3000);
+                //angular.element('#succ_alert').delay(80000).hide();
+                // $scope.showAlert = false;
             }
         }
 
@@ -90,6 +107,11 @@ var chatApp = angular
             $scope.clock = settingData.clock;
             $scope.language = settingData.language;
             $scope.enterEnable = settingData.enterEnable;
+
+            $scope.clockChanged(settingData.clock);
+            $scope.colorChanged(settingData.color);
+            $scope.changeLanguage(settingData.language);
+            $scope.enterChanged(settingData.enterEnable);
             $scope.saveSettings(false);
         }
 
@@ -141,7 +163,8 @@ var chatApp = angular
             }
             var msg = {
                 user: $scope.userName,
-                text: text
+                text: text,
+                date : convertDate()
             };
             angular.element('#chatArea').val('');
             socket.emit('new message', msg);
@@ -160,8 +183,8 @@ var chatApp = angular
         }
 
         var displaySelfText = function (msg) {
-            var time = new Date();
-            var currenttime = time.toLocaleString('en-US', { hour: 'numeric', hour12: ishour12, minute: '2-digit' });
+           
+            var currenttime = convertDate();
             //float right
             var selfText = angular.element('<li class= \'left clearfix self_chat\'>');
             var nameTime = angular.element('<span class= self_chat_time>').text(currenttime);
@@ -175,11 +198,10 @@ var chatApp = angular
         }
         var messageCtr = 0;
         socket.on('new message', function (msg) {
-            var time = new Date();
-            var currenttime = time.toLocaleString('en-US', { hour: 'numeric', hour12: ishour12, minute: '2-digit' });
+            var time = msg.date;
             //float left
             var partnetText = angular.element('<li class= \'left clearfix partner_chat\'>');
-            var nameTime1 = angular.element('<span class= partner_chat_time>').text(msg.user + ', ' + currenttime);
+            var nameTime1 = angular.element('<span class= partner_chat_time>').text(msg.user + ', ' + time);
             var chatSpan1 = angular.element('<span class = chat_span>').append(msg.text);
             var chatpara1 = angular.element('<p>').append(chatSpan1);
             var chatDiv1 = angular.element('<div class= \'chat-body1 clearfix\'>').append(chatpara1);
@@ -193,6 +215,12 @@ var chatApp = angular
             $scope.mess.push(msg);
             //scroll to bottom
         });
+
+        var convertDate = function(){
+            var time = new Date();
+            var currenttime = time.toLocaleString('en-US', { hour: 'numeric', hour12: ishour12, minute: '2-digit' });
+            return currenttime;
+        }
     })
     .directive("scrollBottom", function () {
         return {
@@ -208,13 +236,16 @@ var chatApp = angular
             }
         }
     })
-    .directive("scroll-bottom", function(){
+    .directive("scroll-bottom", function () {
         return {
-            link: function(scope, element, attr){
-                var $id= $("#" + attr.scroll-bottom);
-                $(element).on("click", function(){
+            link: function (scope, element, attr) {
+                var $id = $("#" + attr.scroll - bottom);
+                $(element).on("click", function () {
                     $id.scrollTop($id[0].scrollHeight);
                 });
             }
         }
-    });
+    })
+    .run(['$rootScope', function($rootScope) {
+        $rootScope.lang = 'en';
+    }]);

@@ -5,6 +5,7 @@
   "main": "src/server.js",
   "author": "Rinkal Modi",
   "dependencies": {
+    "angular-translate-loader-static-files": "^2.17.1",
     "express": "^3.21.2",
     "socket.io": "^0.9.19",
     "webpack-war-plugin": "^1.0.0-beta.3"
