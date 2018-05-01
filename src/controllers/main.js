@@ -136,7 +136,7 @@ var chatApp = angular
         }
         //sends message when ctrl+enter is pressed
         $scope.textChanged = function (event) {
-            if ($scope.enterEnable == 'true') {
+            if ($scope.enterEnable) {
                 if ((event.keyCode == 10 || event.keyCode == 13) && event.ctrlKey) {
                     // Ctrl-Enter pressed
                     $scope.sendMessage();
