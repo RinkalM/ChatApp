@@ -1,0 +1,22 @@
+{
+    "CHAT": "Chat",
+    "SETTINGS": "Settings",
+    "LANGUAGE": "Language",
+    "USER_NAME": "User Name",
+    "INTERFACE_COLOR": "Interface Color",
+    "CLOCK_DISPLAY": "Clock Display",
+    "SEND_MESSAGE_CTRL": "Send Message on CTRL+ENTER",
+    "LIGHT": "Light",
+    "DARK": "Dark",
+    "12_HOURS": "12 Hours",
+    "24_HOURS": "24 Hours",
+    "ON": "On",
+    "OFF": "Off",
+    "ENGLISH": "English",
+    "FRENCH": "French",
+    "SAVE": "Save",
+    "RESET_TO_DEFAULTS": "Reset to defaults",
+    "TYPE_A_MESSAGE": "type a message",
+    "SEND": "Send",
+    "SEETINGS_SAVED": "Settings saved"
+}

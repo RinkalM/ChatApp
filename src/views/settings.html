@@ -1,26 +1,26 @@
 <div ng-hide="showChatTab">        
     <div class="maxl">
-        <label>User Name</label>
+        <label>{{'USER_NAME'| translate}}</label>
         <span>
             <input type="text" id="user" ng-model="userName" />
         </span>
-        <label>Interface color</label>
+        <label>{{'INTERFACE_COLOR' | translate}}</label>
         <label class="radio inline">
             <input type="radio" ng-model="colortheme" value="light" ng-click="colorChanged('light')"/>
-            <span>Light</span>
+            <span>{{'LIGHT' | translate}}</span>
         </label>
         <label class="radio inline">
             <input type="radio" ng-model="colortheme" value="dark" ng-click="colorChanged('dark')"/>
-            <span>Dark</span>
+            <span>{{'DARK' | translate}}</span>
         </label>
-        <label>Clock Display</label>
+        <label>{{'CLOCK_DISPLAY' | translate}}</label>
         <label class="radio inline">
             <input type="radio" id="clk" ng-model="clock" value="12" ng-click="clockChanged(12)"/>
-            <span>12 Hours</span>
+            <span>{{'12_HOURS' | translate}}</span>
         </label>
         <label class="radio inline">
             <input type="radio" ng-model="clock" value="24" ng-click="clockChanged(24)"/>
-            <span>24 Hours</span>
+            <span>{{'24_HOURS' | translate}}</span>
         </label>
         <!-- <label>Message Sounds</label>
         <label class="radio inline">
@@ -31,32 +31,32 @@
             <input type="radio" name="sound" value="off">
             <span>Off </span>
         </label> -->
-        <label>Send Message on CTRL+ENTER</label>
+        <label>{{'SEND_MESSAGE_CTRL' | translate}}</label>
         <label class="radio inline">
             <input type="radio" value="true" ng-model="enterEnable" ng-click="enterChanged(true)"/>
-            <span>On</span>
+            <span>{{'ON' | translate}}</span>
         </label>
         <label class="radio inline">
             <input type="radio" value="false" ng-model="enterEnable" ng-click="enterChanged(false)"/>
-            <span>Off</span>
+            <span>{{'OFF' | translate}}</span>
             </span>
         </label>
-        <label>Language</label>
+        <label>{{'LANGUAGE '| translate}}</label>
         <div class="dropDownContainer">
-            <select ng-model="language">
-                <option value="en_EN">English</option>
-                <!-- <option value="French">French</option> -->
+            <select ng-model="language" ng-change="changeLanguage(language)">
+                <option value="en">{{'ENGLISH' | translate }}</option>
+                <option value="fr">{{'FRENCH' | translate }}</option>
             </select>
         </div>
         <div class="pull-left" style="display: block;">
-            <div class="btn btn-reset" style="margin-left: 20px; margin-top: 20px;" ng-click="saveSettings(true)">Save</div>                  
+            <div class="btn btn-reset" style="margin-left: 20px; margin-top: 20px;" ng-click="saveSettings(true)" title="{{'SAVE' | translate }}">{{'SAVE' | translate }}</div>                  
         </div>
         
         <div class="alert alert-success" id="succ_alert" style="display:none;opacity: 0.8;" >
-                Settings saved.       
+            {{'SEETINGS_SAVED' | translate }}       
         </div>
     </div>
     <div class="button-container">
-        <div class="btn btn-reset" ng-click="resetDefault()">Reset to default</div>
+        <div class="btn btn-reset" ng-click="resetDefault()" title="{{'RESET_TO_DEFAULTS' | translate }}">{{'RESET_TO_DEFAULTS' | translate }}</div>
     </div>
 </div>

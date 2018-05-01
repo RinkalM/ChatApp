@@ -1,0 +1,22 @@
+{
+    "CHAT": "Bavarder",
+    "SETTINGS": "Paramètres",
+    "LANGUAGE": "La langue",
+    "USER_NAME": "Nom d'utilisateur",
+    "INTERFACE_COLOR": "Couleur de l'interface",
+    "CLOCK_DISPLAY": "Affichage de l'horloge",
+    "SEND_MESSAGE_CTRL": "Envoyer un message sur CTRL+ENTER",
+    "LIGHT": "Pâle",
+    "DARK": "Foncé",
+    "12_HOURS": "12 Heures",
+    "24_HOURS": "24 Heures",
+    "ON": "Allumer",
+    "OFF": "Éteint",
+    "ENGLISH": "Anglais",
+    "FRENCH": "Français",
+    "SAVE": "Enregistrer",
+    "RESET_TO_DEFAULTS": "Réinitialiser",
+    "TYPE_A_MESSAGE": "tapez un message",
+    "SEND": "Envoyer",
+    "SEETINGS_SAVED": "Paramètres sauvegardés"
+}

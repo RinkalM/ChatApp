@@ -1,4 +1,5 @@
 /// <refernce path="main.js"/>
+//Storage service class for storing and retreiving data from browser's local storage.
 chatApp.factory('storageService', function(){
     return{
         getSetting: function(name){
