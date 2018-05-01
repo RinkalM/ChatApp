@@ -163,10 +163,11 @@ var chatApp = angular
             if (text == undefined || text == "") {
                 return;
             }
+            var senderTime = new Date();
             var msg = {
                 user: $scope.userName,
                 text: text,
-                date : convertDate()
+                curDate : senderTime
             };
             angular.element('#chatArea').val('');
             socket.emit('message', msg);
@@ -187,7 +188,7 @@ var chatApp = angular
         //displays text on the left side of screen of user who is sending the message.
         var displaySelfText = function (msg) {
            
-            var currenttime = convertDate();
+            var currenttime = convertDate(new Date);
             var str = convertLinks(msg.text);
             //float right
             var selfText = angular.element('<li class= \'left clearfix self_chat\'>');
@@ -203,11 +204,12 @@ var chatApp = angular
         var messageCtr = 0;
         //this is called when message is received in chat session
         socket.on('message', function (msg) {
-            var time = msg.date;
+            var time = new Date(msg.curDate);
+            var currenttime = convertDate(time);
             //float left
             var str = convertLinks(msg.text);
             var partnetText = angular.element('<li class= \'left clearfix partner_chat\'>');
-            var nameTime1 = angular.element('<span class= partner_chat_time>').text(msg.user + ', ' + time);
+            var nameTime1 = angular.element('<span class= partner_chat_time>').text(msg.user + ', ' + currenttime);
             var chatSpan1 = angular.element('<span class = \'chat_span\'>').append(str);
             var chatpara1 = angular.element('<p>').append(chatSpan1);
             var chatDiv1 = angular.element('<div class= \'chat-body1 clearfix\'>').append(chatpara1);
@@ -232,8 +234,7 @@ var chatApp = angular
         }
 
         //converts date in to hh:mm format
-        var convertDate = function(){
-            var time = new Date();
+        var convertDate = function(time){
             var currenttime = time.toLocaleString('en-US', { hour: 'numeric', hour12: ishour12, minute: '2-digit' });
             return currenttime;
         }
